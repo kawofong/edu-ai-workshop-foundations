@@ -35,15 +35,16 @@ class AgenticWorkflow:
                 continue
 
             # AI decides which tool to use AND extracts parameters
-            # Pass the full AgentGoal for richer context
+            # Pass the goal description as string for simplicity
             decision = await workflow.execute_activity(
                 "ai_select_tool_with_params",
-                args=[agent_goal, AVAILABLE_TOOLS, context],
+                args=[agent_goal.description, AVAILABLE_TOOLS, context],
                 start_to_close_timeout=timedelta(seconds=30),
             )
 
             tool_result = decision.get("tool", "")
             selected_tool = tool_result if isinstance(tool_result, str) else ""
+            workflow.logger.info(f"AI selected tool: {selected_tool}")
             param_result = decision.get("parameters", {})
             parameters = param_result if isinstance(param_result, dict) else {}
 
@@ -63,7 +64,7 @@ class AgenticWorkflow:
                 # Execute the activity dynamically using the tool name as activity type
                 result: str = await workflow.execute_activity(
                     selected_tool,  # Use the tool name as the activity type
-                    arg=parameters,  # Pass parameters as the argument
+                    args=[parameters],  # Pass parameters as the argument
                     start_to_close_timeout=timedelta(seconds=30),
                 )
 

@@ -4,7 +4,15 @@ import logging
 import os
 import sys
 
-from activities import agent_validate_prompt, ai_select_tool_with_params, dynamic_tool_activity
+from activities import (
+    agent_validate_prompt, 
+    ai_select_tool_with_params,
+    search_flights_activity,
+    check_seat_availability_activity,
+    calculate_total_cost_activity,
+    book_flight_activity,
+    send_confirmation_activity,
+)
 from temporalio.client import Client
 from temporalio.worker import Worker
 from workflow import AgenticWorkflow
@@ -26,7 +34,11 @@ async def main() -> None:
             activities=[
                 agent_validate_prompt,
                 ai_select_tool_with_params,
-                dynamic_tool_activity, 
+                search_flights_activity,
+                check_seat_availability_activity,
+                calculate_total_cost_activity,
+                book_flight_activity,
+                send_confirmation_activity,
             ],
             activity_executor=executor,
         )
