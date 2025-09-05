@@ -20,7 +20,7 @@ async def main() -> None:
     logging.getLogger("LiteLLM").setLevel(logging.WARNING)
     client = await Client.connect("localhost:7233")
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as activity_executor:
         worker = Worker(
             client,
             task_queue="agentic-queue",
@@ -34,7 +34,7 @@ async def main() -> None:
                 book_flight_activity,
                 send_confirmation_activity,
             ],
-            activity_executor=executor,
+            activity_executor=activity_executor,
         )
         logging.info("Starting the worker....")
         await worker.run()
