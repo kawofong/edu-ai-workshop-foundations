@@ -14,6 +14,9 @@ Eventually, the Codespace will display the readme for the repo in the top two-th
 
 ![3 — Loaded Codespace](https://i.postimg.cc/wvfZBqYQ/3-loaded-codespace.png)
 
+Before presenting, make sure you have cleared all outputs if you've experiemented with this workshop prior to presenting.
+[Clear all outputs](https://i.postimg.cc/RZvQmxLP/clear-all-outputs.png)
+
 There are two things you’ll want to do before getting started: open the Web UI, and open some terminal windows to work in.
 
 ### Opening the Web UI

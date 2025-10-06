@@ -1,4 +1,4 @@
-# AI Agent Workshop with Temporal
+# Foundations of Durable AI with Temporal
 
 This repository contains a hands-on workshop demonstrating how to build AI agents with Temporal Workflows. 
 The workshop teaches the progression from simple AI agents to production-ready, durable systems that handle failures gracefully and support human-in-the-loop interactions.
@@ -10,17 +10,19 @@ This workshop demonstrates three key concepts:
 1. **Traditional AI Agent** - A simple research agent that calls an LLM and generates a PDF report
 2. **Durable Execution** - The same agent built with Temporal workflows for fault tolerance and automatic retries
 3. **Human-in-the-Loop** - Adding Temporal Signals to enable human decision-making within AI workflows
+4. **Agentic Loop** - An introduction into the Agentic Loop
 
 ## Repository Structure
 
 ```
 ├── notebooks/          # Interactive Jupyter notebooks for the workshop
-│   ├── content/        # Main workshop content
-│   └── exercises/      # Hands-on exercises
+├── exercises/          # Hands-on exercises for the workshop
+│   ├── Practice        # Every chapter will have a Practice dir where students do their work in
+│   ├── Solution        # TEvery chapter will have a Solution dir where students can refer
 ├── src/                # Standalone Python implementations
-│   ├── module_one_01_ai_agent/           # Simple AI agent
-│   ├── module_one_02_adding_durability/  # Temporal-based durable agent
-│   └── module_one_03_human_in_the_loop/  # Agent with human interaction
+│   ├── module_one_01_ai_agent/           # Simple chain workflow
+│   ├── module_one_02_adding_durability/  # Temporal-based durable workflow
+│   └── module_one_03_human_in_the_loop/  # Adding human in the loop into our application
 |   └── module_one_04_agentic_loop/       # Agent that can make its own decisions
 └── justfile           # Development automation commands
 ```
@@ -31,47 +33,6 @@ This workshop demonstrates three key concepts:
 - OpenAI API key (or other LLM provider API key)
 - Basic familiarity with Python and async programming
 
-## Installation
-
-### 1. Install Python 3.13 with uv
-
-This project uses `uv` for Python version and package management:
-
-```bash
-# Install uv if you haven't already
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Install Python 3.13
-uv python install 3.13
-
-# Verify installation
-uv python list
-```
-
-#### 2. Setup
-
-1. Create a virtual environment: `python -m venv env`
-2. Activate the environment:
-   - Mac: `source env/bin/activate`
-   - Windows: `env\Scripts\activate`
-3. Install dependencies from `pyproject.toml` directory: `pip install -e .`
-4. Once activated, you should see (env) prepended to your bash prompt
-
-### 3. Configure API Keys
-
-Copy the example environment file and add your API key:
-
-```bash
-cp .env.example .env
-```
-
-Then edit `.env` and replace `YOUR_API_KEY` with your actual OpenAI API key:
-
-```bash
-LLM_API_KEY = "your-actual-openai-api-key"
-LLM_MODEL = "openai/gpt-4o"
-```
-
 ## Running the Workshop: Codespaces
 
 You can run this workshop on Codespaces as an Exercise Environment.
@@ -80,40 +41,6 @@ You can launch an exercise environment for this course using GitHub Codespaces b
 
 Before presenting, make sure you have cleared all outputs if you've experiemented with this workshop prior to presenting.
 [Clear all outputs](https://i.postimg.cc/RZvQmxLP/clear-all-outputs.png)
-
-#### Module 1: Basic AI Agent
-
-This demonstrates a simple agent that:
-- Prompts for a research topic
-- Calls an LLM for research
-- Generates a PDF report
-- Shows the limitations of non-durable execution
-
-#### Module 2: Durable Execution with Temporal
-
-- Fault-tolerant execution that survives process crashes
-- Automatic retries with exponential backoff
-- State persistence across worker restarts
-- Monitoring via Temporal Web UI at http://localhost:8080
-
-#### Module 3: Human-in-the-Loop
-
-- Pausing workflows for human decision-making
-- Using Temporal Signals for real-time communication
-- Allowing humans to approve or modify AI-generated content
-
-## Development Commands
-
-The project uses `just` for development automation:
-
-```bash
-just check          # Run all checks (lint, format-check, typecheck)
-just fix            # Auto-fix linting and formatting issues  
-just lint           # Run ruff linter with fixes
-just format         # Format code with ruff
-just typecheck      # Run mypy type checking
-just clean          # Remove Python cache files
-```
 
 ## Key Learning Outcomes
 
@@ -128,14 +55,13 @@ By completing this workshop, you'll learn:
 
 ## Workshop Structure
 
-### Part 1: Building Your First AI Agent
-- Understanding agentic AI concepts
+### Part 1: Building Your First AI Chain Workflow
 - Creating basic LLM interactions
 - Generating PDF reports
 - Identifying distributed systems challenges
 
 ### Part 2: Adding Durability
-- Introduction to Temporal Workflows
+- Introduction to Temporal
 - Converting agents to durable Workflows
 - Implementing automatic retries
 - Monitoring Workflow Execution
@@ -151,21 +77,6 @@ By completing this workshop, you'll learn:
 - Introduction to Dynamic Activities
 - Understanding dynamic tools 
 - Determining when the goal is complete
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Python Version**: Ensure you're using Python 3.13+
-2. **API Keys**: Verify your OpenAI API key is correctly configured
-3. **Temporal Server**: Make sure the Temporal server is running before starting workers
-4. **Port Conflicts**: The Temporal Web UI runs on port 8080 by default
-
-### Getting Help
-
-- Check the Temporal documentation: https://docs.temporal.io/
-- Review the workshop notebooks for detailed explanations
-- Examine the source code in `src/` for implementation details
 
 ## Contributing
 
