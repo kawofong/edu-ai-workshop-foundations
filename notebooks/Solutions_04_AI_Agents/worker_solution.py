@@ -16,7 +16,7 @@ async def run_worker() -> None:
         ],
         activities=[
             create,
-            get_weather_alerts.get_weather_alerts,
+            get_weather_alerts,
         ],
     )
     

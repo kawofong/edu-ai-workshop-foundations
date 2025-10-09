@@ -17,7 +17,7 @@ class ToolCallingWorkflow:
                 model="gpt-4o-mini",
                 instructions=system_instructions,
                 input=input_list,
-                tools=[get_weather_alerts.WEATHER_ALERTS_TOOL_OAI],
+                tools=[WEATHER_ALERTS_TOOL_OAI],
             ),
             start_to_close_timeout=timedelta(seconds=30),
         )
@@ -36,8 +36,8 @@ class ToolCallingWorkflow:
                 ]
                 
                 result = await workflow.execute_activity(
-                    get_weather_alerts.get_weather_alerts,
-                    get_weather_alerts.GetWeatherAlertsRequest(state=json.loads(item.arguments)["state"]),
+                    get_weather_alerts,
+                    GetWeatherAlertsRequest(state=json.loads(item.arguments)["state"]),
                     start_to_close_timeout=timedelta(seconds=30),
                 )
                 
