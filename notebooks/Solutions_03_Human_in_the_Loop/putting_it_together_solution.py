@@ -12,7 +12,7 @@ async def query_research_result(client: Client, workflow_id: str) -> None:
         print(f"Query failed: {e}")
 
 
-async def send_user_decision_signal(client: Client, workflow_id: str) -> None:
+async def send_user_decision(client: Client, workflow_id: str) -> None:
     handle = client.get_workflow_handle(workflow_id)
 
     while True:

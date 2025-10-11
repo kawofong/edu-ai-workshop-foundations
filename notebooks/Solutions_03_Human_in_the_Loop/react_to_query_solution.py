@@ -6,7 +6,6 @@ from temporalio import workflow
 class GenerateReportWorkflow:
     def __init__(self) -> None:
         self._current_prompt: str = ""
-        # Instance variable to store the Signal in
         self._user_decision: UserDecisionSignal = UserDecisionSignal(decision=UserDecision.WAIT)
         self._research_result: str = ""
 

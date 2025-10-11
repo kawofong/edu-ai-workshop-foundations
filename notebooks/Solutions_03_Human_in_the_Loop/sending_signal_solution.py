@@ -22,8 +22,7 @@ async def send_user_decision_signal(client: Client, workflow_id: str) -> None:
           break
       if decision in {"edit", "2"}:
           additional_prompt_input = input("Enter additional instructions to edit the output (optional): ").strip()
-          additional_prompt = additional_prompt_input if additional_prompt_input else ""
-          signal_data = UserDecisionSignal(decision=UserDecision.EDIT, additional_prompt=additional_prompt)
+          signal_data = UserDecisionSignal(decision=UserDecision.EDIT, additional_prompt=additional_prompt_input)
           await handle.signal("user_decision_signal", signal_data)
           print("Signal sent to regenerate output")
 
