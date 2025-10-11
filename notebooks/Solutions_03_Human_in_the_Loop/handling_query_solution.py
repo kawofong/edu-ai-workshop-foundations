@@ -1,6 +1,3 @@
-import asyncio
-from datetime import timedelta
-
 from temporalio import workflow
 
 @workflow.defn(sandboxed=False)
@@ -21,4 +18,13 @@ class GenerateReportWorkflow:
     def get_research_result(self) -> str | None:
         return self._research_result
 
-    # Rest of code here...
+    @workflow.run
+    async def run(self, input: GenerateReportInput) -> GenerateReportOutput:
+      self._current_prompt = input.prompt
+
+      llm_call_input = LLMCallInput(
+          prompt=self._current_prompt,
+          llm_api_key=input.llm_api_key,
+          llm_model=input.llm_research_model,
+      )
+      # rest of code here

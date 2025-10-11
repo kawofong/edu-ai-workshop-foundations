@@ -1,6 +1,5 @@
 # Set the instance variable of the user decision to default to WAIT
 # Run this code block to load it into the program
-from datetime import timedelta
 from temporalio import workflow
 
 # sandboxed=False is a Notebook only requirement. You normally don't do this
@@ -11,4 +10,14 @@ class GenerateReportWorkflow:
         # Instance variable to store Signal data
         self._user_decision: UserDecisionSignal = UserDecisionSignal(decision=UserDecision.WAIT) # TODO Set the default state of the user decision to be WAIT
 
-    # rest of code
+    @workflow.run
+    async def run(self, input: GenerateReportInput) -> GenerateReportOutput:
+      self._current_prompt = input.prompt
+
+      llm_call_input = LLMCallInput(
+          prompt=self._current_prompt,
+          llm_api_key=input.llm_api_key,
+          llm_model=input.llm_research_model,
+      )
+
+      # rest of code

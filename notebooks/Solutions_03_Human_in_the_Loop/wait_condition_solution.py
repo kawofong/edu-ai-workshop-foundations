@@ -33,8 +33,6 @@ class GenerateReportWorkflow:
                 start_to_close_timeout=timedelta(seconds=30),
             )
 
-            self._research_result = research_facts["choices"][0]["message"]["content"]
-
             # Waiting for Signal with user decision
             await workflow.wait_condition(lambda: self._user_decision.decision != UserDecision.WAIT)
 

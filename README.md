@@ -27,7 +27,6 @@ This workshop demonstrates three key concepts:
 │   └── module_one_03_human_in_the_loop/  # Adding human in the loop into our application
 |   └── module_one_04_agentic_loop/       # Agent that can make its own decisions
 |   └── README.md      # Instructions on how to run demos
-└── justfile           # Development automation commands
 ```
 
 ## Prerequisites
