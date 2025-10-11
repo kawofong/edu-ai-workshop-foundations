@@ -44,3 +44,14 @@ class GenerateReportWorkflow:
                 workflow.logger.info("No additional instructions provided. Regenerating with original prompt.")
             # Update the Activity input with the modified prompt for the next iteration
             llm_call_input.prompt = self._current_prompt
+            self._user_decision = UserDecisionSignal(decision=UserDecision.WAIT)
+
+    pdf_generation_input = PDFGenerationInput(content=research_facts["choices"][0]["message"]["content"])
+
+    pdf_filename: str = await workflow.execute_activity(
+        create_pdf,
+        pdf_generation_input,
+        start_to_close_timeout=timedelta(seconds=20),
+    )
+
+    return GenerateReportOutput(result=f"Successfully created research report PDF: {pdf_filename}")

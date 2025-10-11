@@ -51,8 +51,6 @@ class GenerateReportWorkflow:
                 else:
                     workflow.logger.info("No additional instructions provided. Regenerating with original prompt.")
                 llm_call_input.prompt = self._current_prompt
-
-                # Set the decision back to WAIT for the next loop
                 self._user_decision = UserDecisionSignal(decision=UserDecision.WAIT)
 
         pdf_generation_input = PDFGenerationInput(content=research_facts["choices"][0]["message"]["content"])
