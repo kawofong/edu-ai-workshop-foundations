@@ -31,7 +31,7 @@ The project is already configured to use Python 3.13 via the `.python-version` f
 
 #### Normal Execution Demo
 
-1. Demonstrate normal (non-durable) execution by routing to `module_01_ai_agent` and running `python app.py`.
+1. Demonstrate normal (non-durable) execution by routing to `module_01_ai_agent` and running `uv run app.py`.
 2. Enter a research topic or question in the CLI. 
 3. When the countdown starts, kill the process with 'CTRL+C'.
 4. Ask the auidience
@@ -57,8 +57,8 @@ The project is already configured to use Python 3.13 via the `.python-version` f
 
 ### Human in the Loop Demo (Signals)
 1. We will now showcase how we can leverage human-in-the-loop with Temporal Signals. Route to the `module_one_03_human_in_the_loop` directory. 
-2. In one terminal window, run your Worker with `python worker.py`.
-3. In another terminal window, execute your Workflow with `python starter.py`.
+2. In one terminal window, run your Worker with `uv run worker.py`.
+3. In another terminal window, execute your Workflow with `uv run starter.py`.
 4. You'll be prompted to enter a research topic or question in the CLI. 
 5. Once you do, you'll be prompted with the ability to Signal or Query the Workflow.
 6. Type 'query' and you'll see the output in the terminal window where you started your Workflow Execution. 
@@ -73,8 +73,8 @@ The project is already configured to use Python 3.13 via the `.python-version` f
 1. We will now showcase how an AI agent can dynamically choose its own tools with Temporal. Route to the `module_one_04_agentic_loop` directory with `cd module_one_04_agentic_loop`.
 2. Open three terminal windows.
 3. In one terminal window, start the Temporal server with `temporal server start-dev --ui-port 8080` (if not already running).
-4. In another terminal window, navigate to the `module_one_04_agentic_loop` directory and run the worker with `python worker.py`.
-5. In the third terminal window, execute your Workflow with `python starter.py`.
+4. In another terminal window, navigate to the `module_one_04_agentic_loop` directory and run the worker with `uv run worker.py`.
+5. In the third terminal window, execute your Workflow with `uv run starter.py`.
 6. Enter a booking goal when prompted (e.g., "Book a flight from RDU to London on November 18").
 7. Watch as the AI agent:
     - Decides to search for flights first

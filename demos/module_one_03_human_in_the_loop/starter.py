@@ -1,17 +1,9 @@
 import asyncio
-import os
-
+import uuid
 from dotenv import load_dotenv
 from models import GenerateReportInput, UserDecision, UserDecisionSignal
 from temporalio.client import Client
 from workflow import GenerateReportWorkflow
-
-load_dotenv(override=True)
-
-# Get LLM_API_KEY environment variable
-LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-4o")
-LLM_API_KEY = os.getenv("LLM_API_KEY", "YOU-DIDNT-PROVIDE-A-KEY")
-
 
 async def main() -> None:
     client = await Client.connect("localhost:7233")
@@ -25,12 +17,12 @@ async def main() -> None:
 
     handle = await client.start_workflow(
         GenerateReportWorkflow,
-        GenerateReportInput(prompt=prompt, llm_api_key=LLM_API_KEY),
-        id="generate-research-report-workflow",
+        GenerateReportInput(prompt=prompt),
+        id=f"generate-researdch-report-workflow-{uuid.uuid4()}",
         task_queue="durable",
     )
 
-    print(f"Started workflow. Workflow ID: {handle.id}, RunID {handle.result_run_id}")
+    print(f"Workflow ID: {handle.id}, RunID {handle.result_run_id}")
 
     signal_task = asyncio.create_task(send_user_decision_signal(client, handle.id))
 
@@ -62,30 +54,28 @@ async def send_user_decision_signal(client: Client, workflow_id: str) -> None:
 
     while True:
         print("\n" + "=" * 50)
-        print("Research is complete!")
-        print("1. Type 'keep' to approve the research and create PDF")
-        print("2. Type 'edit' to modify the research")
-        print(
-            "3. Type 'query' to query for research result. If querying, wait for `Reserch Complete` to appear in terminal window with Worker running first."
-        )
+        print("Research is in progress! When it's complete you can choose one of the following options:")
+        print("1. Type 'query' to query for research result. If querying, wait for `Reserch Complete` to appear in terminal window with Worker running first.")
+        print("2. Type 'keep' to approve the research and create PDF")
+        print("3. Type 'edit' to modify the research")
         print("=" * 50)
 
         decision = input("Your decision (keep/edit/query): ").strip().lower()
 
-        if decision in {"keep", "1"}:
+        if decision in {"query", "1"}:
+            await query_research_result(client, workflow_id)
+        if decision in {"keep", "2"}:
             signal_data = UserDecisionSignal(decision=UserDecision.KEEP)
             await handle.signal("user_decision_signal", signal_data)
             print("Signal sent to keep research and create PDF")
             break
-        if decision in {"edit", "2"}:
+        elif decision in {"edit", "3"}:
             additional_prompt_input = input("Enter additional instructions for the research (optional): ").strip()
             additional_prompt = additional_prompt_input if additional_prompt_input else ""
 
             signal_data = UserDecisionSignal(decision=UserDecision.EDIT, additional_prompt=additional_prompt)
             await handle.signal("user_decision_signal", signal_data)
             print("Signal sent to regenerate research")
-        elif decision in {"query", "3"}:
-            await query_research_result(client, workflow_id)
 
         else:
             print("Please enter either 'keep', 'edit', or 'query'")

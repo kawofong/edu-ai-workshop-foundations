@@ -11,8 +11,6 @@ class UserDecision(StrEnum):
 @dataclass
 class LLMCallInput:
     prompt: str
-    llm_api_key: str
-    llm_model: str
 
 
 @dataclass
@@ -24,8 +22,6 @@ class PDFGenerationInput:
 @dataclass
 class GenerateReportInput:
     prompt: str
-    llm_api_key: str
-    llm_research_model: str = "openai/gpt-4o"
     llm_image_model: str = "dall-e-3"
 
 

@@ -2,7 +2,7 @@ import os
 import time
 
 from dotenv import load_dotenv
-from litellm import CustomStreamWrapper, completion
+from litellm import completion
 from litellm.types.utils import ModelResponse
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
@@ -15,7 +15,7 @@ LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-4o")
 LLM_API_KEY = os.getenv("LLM_API_KEY", None)
 
 
-def llm_call(prompt: str, llm_api_key: str, llm_model: str) -> ModelResponse | CustomStreamWrapper:  # type: ignore[no-any-unimported]
+def llm_call(prompt: str, llm_api_key: str, llm_model: str) -> ModelResponse:
     return completion(
         model=llm_model,
         api_key=llm_api_key,

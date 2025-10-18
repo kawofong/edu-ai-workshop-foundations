@@ -23,10 +23,10 @@ class GenerateReportWorkflow:
         )
         
         # Continue looping until the user approves the research
-        continue_agent_loop = True
+        continue_user_input_loop = True
 
         # Execute the LLM call to generate research based on the current prompt
-        while continue_agent_loop:
+        while continue_user_input_loop:
             research_facts = await workflow.execute_activity(
                 llm_call,
                 llm_call_input,
@@ -36,7 +36,7 @@ class GenerateReportWorkflow:
             # User approved the research - exit the loop and proceed to PDF generation
             if self._user_decision.decision == UserDecision.KEEP:
                 workflow.logger.info("User approved the research. Creating PDF...")
-                continue_agent_loop = False
+                continue_user_input_loop = False
             # User wants to edit the research - update the prompt and loop again
             elif self._user_decision.decision == UserDecision.EDIT:
                 workflow.logger.info("User requested research modification.")

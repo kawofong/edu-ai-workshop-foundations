@@ -29,9 +29,9 @@ class GenerateReportWorkflow:
             llm_model=input.llm_research_model,
         )
 
-        continue_agent_loop = True
+        continue_user_input_loop = True
 
-        while continue_agent_loop:
+        while continue_user_input_loop:
             research_facts = await workflow.execute_activity(
                 llm_call,
                 llm_call_input,
@@ -45,7 +45,7 @@ class GenerateReportWorkflow:
 
             if self._user_decision.decision == UserDecision.KEEP:
                 workflow.logger.info("User approved the research. Creating PDF...")
-                continue_agent_loop = False
+                continue_user_input_loop = False
             elif self._user_decision.decision == UserDecision.EDIT:
                 workflow.logger.info("User requested research modification.")
                 if self._user_decision.additional_prompt != "":

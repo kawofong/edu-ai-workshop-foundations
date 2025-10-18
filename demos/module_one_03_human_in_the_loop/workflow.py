@@ -38,13 +38,11 @@ class GenerateReportWorkflow:
 
         llm_call_input = LLMCallInput(
             prompt=self._current_prompt,
-            llm_api_key=input.llm_api_key,
-            llm_model=input.llm_research_model,
         )
 
-        continue_agent_loop = True
+        continue_user_input_loop = True
 
-        while continue_agent_loop:
+        while continue_user_input_loop:
             research_facts = await workflow.execute_activity(
                 llm_call,
                 llm_call_input,
@@ -56,14 +54,14 @@ class GenerateReportWorkflow:
 
             print("Research complete!")
 
-            print("Waiting for user decision. Send signal with 'keep' to create PDF or 'edit' to modify research.")
+            print("Waiting for user decision.")
             await workflow.wait_condition(lambda: self._user_decision.decision != UserDecision.WAIT)
 
             user_decision = self._user_decision
 
             if user_decision.decision == UserDecision.KEEP:
                 print("User approved the research. Creating PDF...")
-                continue_agent_loop = False
+                continue_user_input_loop = False
             elif user_decision.decision == UserDecision.EDIT:
                 print("User requested research modification.")
                 if user_decision.additional_prompt != "":
