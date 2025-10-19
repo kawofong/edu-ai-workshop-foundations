@@ -15,10 +15,10 @@ LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-4o")
 LLM_API_KEY = os.getenv("LLM_API_KEY", None)
 
 
-def llm_call(prompt: str, llm_api_key: str, llm_model: str) -> ModelResponse:
+def llm_call(prompt: str) -> ModelResponse:
     return completion(
-        model=llm_model,
-        api_key=llm_api_key,
+        model=LLM_MODEL,
+        api_key=LLM_API_KEY,
         messages=[{"content": prompt, "role": "user"}],
     )
 
@@ -60,7 +60,7 @@ if not prompt:
 
 print("\nPART 1: Getting research report from OpenAI. Please wait...")
 
-result = llm_call(prompt, LLM_API_KEY or "", LLM_MODEL)
+result = llm_call(prompt)
 
 response_content: str = result["choices"][0]["message"]["content"]
 
