@@ -8,7 +8,7 @@ class GenerateReportWorkflow:
     @workflow.run
     async def run(self, input: GenerateReportInput) -> GenerateReportOutput:
 
-        llm_call_input = LLMCallInput(prompt=input.prompt, llm_api_key=LLM_API_KEY, llm_model=LLM_MODEL)
+        llm_call_input = LLMCallInput(prompt=input.prompt)
 
         research_facts = await workflow.execute_activity(
             llm_call,

@@ -14,10 +14,6 @@ class GenerateReportWorkflow:
     async def run(self, input: GenerateReportInput) -> GenerateReportOutput:
       self._current_prompt = input.prompt
 
-      llm_call_input = LLMCallInput(
-          prompt=self._current_prompt,
-          llm_api_key=input.llm_api_key,
-          llm_model=input.llm_research_model,
-      )
+      llm_call_input = LLMCallInput(prompt=self._current_prompt)
 
       # rest of code
