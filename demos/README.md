@@ -40,10 +40,10 @@ LLM_MODEL=openai/gpt-4o
 
 #### Normal Execution Demo
 
-1. Demonstrate normal (non-durable) execution by routing to `module_01_ai_agent` and running `uv run app.py`.
+1. Demonstrate normal (non-durable) execution by routing to `module_one_01_foundations_ai` and running `uv run app.py`.
 2. Enter a research topic or question in the CLI. 
 3. When the countdown starts, kill the process with 'CTRL+C'.
-4. Ask the auidience
+4. Ask the audience
     > What will happen if I run the execution again?
         The answer should be "It will start over."
         You can ask
@@ -52,28 +52,28 @@ LLM_MODEL=openai/gpt-4o
 4. Run the Normal Execution script again with `python app.py`. Confirm that the code did, in fact, start over. The state is lost, meaning the LLM no longer remembers your original prompt. Imagine this happening during a more intensive workflow — if you’ve already made significant progress, you’ve likely consumed a considerable number of tokens. Restarting the process would require you to repeat steps and spend additional tokens unnecessarily.
 
 #### Durable Execution Demo
-1. We will now showcase how this is different with Temporal. Route to the `module_02_adding_durability` directory. 
+1. We will now showcase how this is different with Temporal. Route to the `module_one_02_adding_durability` directory. 
 2. Open three terminal windows.
 3. In one terminal window, start the Temporal server with `temporal server start-dev --ui-port 8080 --db-filename clusterdata.db`.
 4. In another terminal window, run the worker with `uv run worker.py`. You'll see some output indicating that the Worker has been started.
-5. In the third terminal window, execute your Workflow with `unv run starter.py`.
+5. In the third terminal window, execute your Workflow with `uv run starter.py`.
 6. You'll be prompted to enter a research topic or question in the CLI. 
 7. Once you do, in the terminal window with the Worker running, you'll see: `Research complete! Time to generate PDF. Kill the Worker now to demonstrate durability.`. Kill the process with `CTRL+C`.
 8. Go on the Web UI and showcase that even though there is no Worker running, the Workflow can still persist despite restarts and infrastructure failures.
 9. Now point out that when we restart the process (by rerunning the Worker with `uv run worker.py`), you won't lose your state or progress, you'll continue from where you left off. Showcase two things:
     - You'll see the Workflow Execution complete successfully in the Web UI. 
-    - You can also show the PDF that will appear in the `module_02_adding_durability` directory.  
+    - You can also show the PDF that will appear in the `module_one_02_adding_durability` directory.  
 
-### Human in the Loop Demo (Signals)
+#### Human in the Loop Demo (Signals)
 1. We will now showcase how we can leverage human-in-the-loop with Temporal Signals. Route to the `module_one_03_human_in_the_loop` directory. 
 2. In one terminal window, run your Worker with `uv run worker.py`.
 3. In another terminal window, execute your Workflow with `uv run starter.py`.
 4. You'll be prompted to enter a research topic or question in the CLI. 
 5. Once you do, you'll be prompted with the ability to Signal or Query the Workflow.
-6. Type 'query' and you'll see the output in the terminal window where you started your Workflow Execution. 
+6. Type `query` and you'll see the output in the terminal window where you started your Workflow Execution. 
 7. Time to demonstrate Signals. Back in the terminal window when you started your Workflow Execution, you'll see that you are prompted to choose one of the two options:
-    a. Approve of this research and if you would like it to create a PDF (type 'keep' to send a Signal to the Workflow to create the PDF).
-    b. Modify the research by adding extra info to the prompt (type 'edit' to modify the prompt and send another Signal to the Workflow to prompt the LLM again).
+    a. Approve of this research and if you would like it to create a PDF (type `keep` to send a Signal to the Workflow to create the PDF).
+    b. Modify the research by adding extra info to the prompt (type `edit` to modify the prompt and send another Signal to the Workflow to prompt the LLM again).
 8. Demonstrate the modification by typing `edit`.
 9. Enter additional instructions (e.g.: "turn this into a poem") and see the new output in the terminal window by typing `query` again (Remember, wait for the "Research complete!" output first in the window where the Worker is running).
 10. Finally, show that you can keep changing the execution path of your Workflow Execution by typing `keep`. Show that the PDF has appeared in your `module_one_03_human_in_the_loop` directory.
