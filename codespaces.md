@@ -50,7 +50,7 @@ Repeat this for as many terminals as you need:
 
 Your Codespace will automatically be stopped 30 minutes after you close the browser tab. This is to prevent excessive resource utilization. It can be resumed from the same part of the Github UI if needed, within 30 days of the last time it was used.
 
-![12 — Resume Codespace](https://i.postimg.cc/ZKWqLnfj/12-resume-codespace.png)
+![12 — Resume Codespace](https://camo.githubusercontent.com/57883c1c573b8af50f3746f48742665a95f74f4aed84866bf8f7b3065cc190ee/68747470733a2f2f692e706f7374696d672e63632f5a4b57714c6e666a2f31322d726573756d652d636f646573706163652e706e67)
 
 ### Delete Your Codespaces
 
