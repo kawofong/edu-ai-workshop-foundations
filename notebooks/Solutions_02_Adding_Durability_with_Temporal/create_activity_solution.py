@@ -14,7 +14,7 @@ def llm_call(input: LLMCallInput) -> ModelResponse:
     return response
 
 @activity.defn
-def create_pdf_activity(input: PDFGenerationInput) -> str:
+def create_pdf(input: PDFGenerationInput) -> str:
     print("Creating PDF document...")
 
     doc = SimpleDocTemplate(input.filename, pagesize=letter)

@@ -21,7 +21,7 @@ class GenerateReportWorkflow:
         pdf_generation_input = PDFGenerationInput(content=research_facts["choices"][0]["message"]["content"])
 
         pdf_filename = await workflow.execute_activity(
-            create_pdf_activity,
+            create_pdf,
             pdf_generation_input,
             start_to_close_timeout=timedelta(seconds=10),
         )

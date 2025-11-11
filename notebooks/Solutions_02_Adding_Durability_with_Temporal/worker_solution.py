@@ -12,7 +12,7 @@ async def run_worker() -> None:
             client,
             task_queue="research",
             workflows=[GenerateReportWorkflow],
-            activities=[llm_call, create_pdf_activity],
+            activities=[llm_call, create_pdf],
             activity_executor=activity_executor
         )
 
